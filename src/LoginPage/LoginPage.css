@@ -35,15 +35,15 @@
 
 .LoginPage_switcher {
     position: absolute;
-    top: 3%;
-    bottom: 3%;
-    width: 48%;
+    top: 0%;
+    bottom: 0%;
+    width: 50%;
     left: 50%;
 
-    background: blue;
+    background: #5a91ff;
     z-index: 2;
-
-    transition: left 300ms ease-in-out;
+    border-radius: 20px;
+    transition: left 300ms cubic-bezier(0,1.03,.42,1.02);
 }
 
 .LoginPage_Loginform {
@@ -153,6 +153,7 @@
 }
 
 .LoginPage_Button_Register {
+    cursor: pointer;
     background-color: white;
     border-radius: 8px;
     border: 2px solid;
@@ -165,4 +166,16 @@
 
     transition: 0.2s;
     transform: scale(1.05);
+}
+
+.LoginPage_switcher {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginPage_Button_Login {
+    position: absolute;
+    align-self: flex-end;
+
+    margin-top: 102%;
 }

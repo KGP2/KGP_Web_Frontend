@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRef } from 'react';
 import "./LoginPage.css"
 
 const LoginPage = () => {
 
-    const button_ref = useRef(null);
+    const reg_button_ref = useRef(null);
+    const [tryLogin, setTryLogin] = useState(true); 
 
     const RegistrationClick = () => {
-        console.log("DUPA");
-        console.log(document.getElementById("switcher").style);
+        if (reg_button_ref != null) {
+            reg_button_ref.current.style.left = '0%';
+            setTryLogin(false);
+        }
+    }
 
-        if (button_ref != null) {
-            console.log("DUPA2");
-            console.log(button_ref.current.style);
-            button_ref.current.style.left = '2%';
+    const LogInClick = () => {
+        if (reg_button_ref != null) {
+            reg_button_ref.current.style.left = '50%';
+            setTryLogin(true);
         }
     }
 
@@ -58,10 +62,27 @@ const LoginPage = () => {
                 </div>
 
                 <div className='LoginPage_Register'>
-                    Dupa
+                    <h2>Rejestracja</h2>
+
+                    <form>
+                        <div>
+                            <label>Email</label>
+                            <input type='email' placeholder='adres email'/>
+                        </div>
+                    </form>
                 </div>
-                <div ref={button_ref} className='LoginPage_switcher' id='switcher'> 
-                    TO JEST TYLKO W CELACH TESTOWYCH 
+
+
+                <div ref={reg_button_ref} className='LoginPage_switcher' id='switcher'> 
+                    <div>
+                        TO JEST TYLKO W CELACH TESTOWYCH
+                    </div>
+                    {
+                        !tryLogin ? 
+                            <button className='LoginPage_Button_Login LoginPage_Button_Register' onClick={LogInClick}> Zaloguj się </button> 
+                            :
+                            null
+                    }
                 </div>
             </div>
         </section>
