@@ -1,5 +1,6 @@
+* { box-sizing: border-box }
+
 .LoginPage_wrapper {
-    box-sizing: content-box;
     width: 100vw;
     height: 100vh;
 
@@ -11,14 +12,12 @@
 }
 
 .LoginPage_isnald {
-    box-sizing: content-box;
     box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2) ;
-    width: 700px;
+    width: 800px;
 
     display: flex;
     flex-direction: row;
 
-    padding: 2%;
     border-radius: 20px;
     background-color: #F3F4F6;
     position: relative;
@@ -26,7 +25,7 @@
 
 .LoginPage_isnald > * {
     flex: 1;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
 }
 
@@ -35,9 +34,16 @@
 } 
 
 .LoginPage_switcher {
-    margin-left: -350px;
+    position: absolute;
+    top: 3%;
+    bottom: 3%;
+    width: 48%;
+    left: 50%;
+
     background: blue;
     z-index: 2;
+
+    transition: left 300ms ease-in-out;
 }
 
 .LoginPage_Loginform {
@@ -64,22 +70,99 @@
     border: 1px solid;
     border-color: #e5e7eb;
     padding: 12px 16px;
+    transition: 0.2s;
 }
 
 .LoginPage_Loginform > :nth-child(-n+2) input:focus  {
     outline: none;
-    border: 1px solid;
+        
     border-color: #5a91ff;
     background: white;
 
-    transition: 0.3s;
+    transition: 0.2s;
 } 
 
 .LoginPage_Loginform > :nth-child(3) {
+    margin-top: 10px;
+    margin-bottom: 25px;
+
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: small;
+    font-weight: bold;
+}
+
+.LoginPage_LoginButton {
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
+    
+    padding: 13px;
+    color: white;
+    font-weight: bold;
+
+    border: 0px solid;
+    border-radius: 8px;
+    background-color: rgb(59 130 246);
+
+    transition: 0.2s;
+    transform: scale(1.0);
+}
+
+.LoginPage_LoginButton:hover {
+    cursor: pointer;
+
+    background-color: rgba(59, 130, 246, 0.85);
+    transition: 0.2s;
+    transform: scale(0.98);
+}
+
+.LoginPage_login > p {
+    font-size: small;
+}
+
+.LoginPage_login > :nth-child(4) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.LoginPage_login > :nth-child(4) > hr {
+    border: 1px solid;
+    flex: 1;
+    margin: 15px;
+}
+
+.LoginPage_login > :nth-child(4) > * {
+    opacity: 0.3;
+}
+
+.LoginPage_login > :nth-child(5) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.LoginPage_login > :nth-child(5) > div {
+    flex-grow: 5;
+    font-size: small;
+}
+
+
+.LoginPage_Button_Register {
+    flex-grow: 1;
 }
 
 .LoginPage_Button_Register {
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid;
+    border-color: rgb(59 130 246);
+    padding: 5px 13px;
+    transition: 0.2s;
+}
 
+.LoginPage_Button_Register:hover {
+
+    transition: 0.2s;
+    transform: scale(1.05);
 }

@@ -1,12 +1,23 @@
 import React from 'react'
+import { useRef } from 'react';
 import "./LoginPage.css"
 
-class LoginPage extends React.Component {
+const LoginPage = () => {
 
+    const button_ref = useRef(null);
 
+    const RegistrationClick = () => {
+        console.log("DUPA");
+        console.log(document.getElementById("switcher").style);
 
-    render() {
-        return (
+        if (button_ref != null) {
+            console.log("DUPA2");
+            console.log(button_ref.current.style);
+            button_ref.current.style.left = '2%';
+        }
+    }
+
+    return (
         <section className='LoginPage_wrapper'>
             <div className='LoginPage_isnald'>
                 <div className='LoginPage_login'>
@@ -16,12 +27,12 @@ class LoginPage extends React.Component {
                     <form className='LoginPage_Loginform'>
                         <div>
                             <label>Email</label>
-                            <input type='email' placeholder='Wpisz adres email'/>
+                            <input type='email' placeholder='adres email'/>
                         </div>
 
                         <div>
                             <label>Hasło</label>
-                            <input type='password' placeholder='Wpisz hasło'/>
+                            <input type='password' placeholder='hasło'/>
                         </div>
 
                         <div>
@@ -40,8 +51,8 @@ class LoginPage extends React.Component {
                     </div>
 
                     <div>
-                        <p>Jeśli nie posiadasz kąta ... </p>
-                        <button className='LoginPage_Button_Register'>Zarejestrój się</button>
+                        <div>Jeśli nie posiadasz konta ... </div>
+                        <button className='LoginPage_Button_Register' onClick={RegistrationClick}>Zarejestruj się</button>
                     </div>
 
                 </div>
@@ -49,13 +60,12 @@ class LoginPage extends React.Component {
                 <div className='LoginPage_Register'>
                     Dupa
                 </div>
-
-                <div className='LoginPage_switcher'> TO JEST TYLKO W CELACH TESTOWYCH </div>
-
+                <div ref={button_ref} className='LoginPage_switcher' id='switcher'> 
+                    TO JEST TYLKO W CELACH TESTOWYCH 
+                </div>
             </div>
         </section>
-        )
-    }
+    )
 }
 
 export default LoginPage;
