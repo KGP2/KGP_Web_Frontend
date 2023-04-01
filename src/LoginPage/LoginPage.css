@@ -1,0 +1,85 @@
+.LoginPage_wrapper {
+    box-sizing: content-box;
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e5e7eb;
+}
+
+.LoginPage_isnald {
+    box-sizing: content-box;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2) ;
+    width: 700px;
+
+    display: flex;
+    flex-direction: row;
+
+    padding: 2%;
+    border-radius: 20px;
+    background-color: #F3F4F6;
+    position: relative;
+}
+
+.LoginPage_isnald > * {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.LoginPage_isnald > :nth-child(-n+2) {
+    z-index: 1;
+} 
+
+.LoginPage_switcher {
+    margin-left: -350px;
+    background: blue;
+    z-index: 2;
+}
+
+.LoginPage_Loginform {
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginPage_Loginform > :nth-child(-n+2) {
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.LoginPage_Loginform > :nth-child(-n+2) label{
+    font-size: medium;
+    margin-bottom: 5px;
+}
+
+.LoginPage_Loginform > :nth-child(-n+2) input {
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: #e5e7eb;
+    border: 1px solid;
+    border-color: #e5e7eb;
+    padding: 12px 16px;
+}
+
+.LoginPage_Loginform > :nth-child(-n+2) input:focus  {
+    outline: none;
+    border: 1px solid;
+    border-color: #5a91ff;
+    background: white;
+
+    transition: 0.3s;
+} 
+
+.LoginPage_Loginform > :nth-child(3) {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.LoginPage_Button_Register {
+
+}
