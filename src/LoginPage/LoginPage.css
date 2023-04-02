@@ -51,19 +51,25 @@
     flex-direction: column;
 }
 
-.LoginPage_Loginform > :nth-child(-n+2) {
+.LoginPage_Loginform > * {
     margin-top: 10px;
 
     display: flex;
     flex-direction: column;
 }
 
-.LoginPage_Loginform > :nth-child(-n+2) label{
+.LoginPage_Loginform > button {
+    margin-top: 10px;
+
+    display: grid;
+}
+
+.LoginPage_Loginform label{
     font-size: medium;
     margin-bottom: 5px;
 }
 
-.LoginPage_Loginform > :nth-child(-n+2) input {
+.LoginPage_Loginform input, .LoginPage_Loginform select {
     box-sizing: border-box;
     border-radius: 4px;
     background: #e5e7eb;
@@ -73,7 +79,7 @@
     transition: 0.2s;
 }
 
-.LoginPage_Loginform > :nth-child(-n+2) input:focus  {
+.LoginPage_Loginform input:focus  {
     outline: none;
         
     border-color: #5a91ff;
@@ -82,7 +88,8 @@
     transition: 0.2s;
 } 
 
-.LoginPage_Loginform > :nth-child(3) {
+
+#RememberPassword {
     margin-top: 10px;
     margin-bottom: 25px;
 
@@ -140,6 +147,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    margin-top: 90px;
 }
 
 .LoginPage_login > :nth-child(5) > div {
@@ -177,5 +186,13 @@
     position: absolute;
     align-self: flex-end;
 
-    margin-top: 102%;
+    margin-top: 125%;
+}
+
+#LoginPage_Register {
+    margin-top: 30px;
+}
+
+#LoginPage_return_arrow {
+    font-weight: 700;
 }

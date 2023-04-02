@@ -39,7 +39,7 @@ const LoginPage = () => {
                             <input type='password' placeholder='hasło'/>
                         </div>
 
-                        <div>
+                        <div id='RememberPassword'>
                             <a>Zapomniałeś hasło?</a>
                         </div>
 
@@ -64,11 +64,34 @@ const LoginPage = () => {
                 <div className='LoginPage_Register'>
                     <h2>Rejestracja</h2>
 
-                    <form>
+                    <form className='LoginPage_Loginform'>
+                        <div>
+                            <label>Imię</label>
+                            <input type='text' placeholder='imię'/>
+                        </div>
+                        <div>
+                            <label>Nazwisko</label>
+                            <input type='text' placeholder='nazwisko'/>
+                        </div>
                         <div>
                             <label>Email</label>
                             <input type='email' placeholder='adres email'/>
                         </div>
+                        <div>
+                            <label>Hasło</label>
+                            <input type='password' placeholder='hasło'/>
+                        </div>
+                        <div>
+                            <label>Rejestruję się jako</label>
+                            <select>
+                                <option></option>
+                                <option>Zwykła osoba</option>
+                                <option>Organizator</option>
+                            </select>
+                        </div>
+                        <button type="submit" className='LoginPage_LoginButton' id='LoginPage_Register'>
+                            Rejestruję się
+                        </button>
                     </form>
                 </div>
 
@@ -79,7 +102,7 @@ const LoginPage = () => {
                     </div>
                     {
                         !tryLogin ? 
-                            <button className='LoginPage_Button_Login LoginPage_Button_Register' onClick={LogInClick}> Zaloguj się </button> 
+                            <button className='LoginPage_Button_Login LoginPage_Button_Register' id='LoginPage_return_arrow' onClick={LogInClick}> &#10229; </button> 
                             :
                             null
                     }
