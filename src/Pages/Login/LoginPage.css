@@ -1,4 +1,4 @@
-* { box-sizing: border-box }
+
 
 .LoginPage_wrapper {
     width: 100vw;
@@ -195,4 +195,10 @@
 
 #LoginPage_return_arrow {
     font-weight: 700;
+}
+
+#LoginPage_IsOrganizator {
+    display: flex;
+    flex-direction: row;
+    font-size: 13px;
 }
