@@ -1,6 +1,8 @@
 import React from 'react'
 import {getToken} from './../../parseToken'
 
+import "./HomeUser.css";
+
 const HomeUser = (props) => {
     
     if (!getToken()) {
@@ -8,8 +10,13 @@ const HomeUser = (props) => {
         window.location.reload();   
     } 
 
+
+
+    // -------------------------
+    //          RENDER
+    // -------------------------
     return(
-        <div>
+        <div className="wrapper">
             JESTEM W DOMU UŻYTKOWNIKA!!!!
         </div>
     )
