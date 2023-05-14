@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TailSpin } from 'react-loader-spinner'
 
 // my styles
 import "./LoginPage.css";
 
 // my components
 import FormInput from './FormInput';
+import { getToken } from '../../parseToken';
 
-const LoginPage = () => {
+const LoginPage = ({setToken}) => {
 
     const reg_button_ref = useRef(null);
     const [tryLogin, setTryLogin] = useState(true); 
     const [LoginAsCommonUser, setLoginAsCommonUser] = useState(true);
+
+    const navigate = useNavigate();
 
     const RegistrationClick = () => {
         if (reg_button_ref != null) {
@@ -61,38 +66,55 @@ const LoginPage = () => {
         setLogin({...Login, [e.target.name]: e.target.value});
     }
 
+    const [try_login, set_try_login] = useState(false);
+
     const LoginUser = async (e) => {
         e.preventDefault();
-
+        set_try_login(true);
 
         if (LoginAsCommonUser) {
-            fetch("https://kgp-ticketapp.azurewebsites.net/users/clients/login", {
+            await fetch("https://kgp-ticketapp.azurewebsites.net/users/clients/login", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(Login),
-            }).then( (response) => {
-                console.log("JESTEM W then");
-                console.log(response);
+            })
+            .then( (response) => {
+                if (response.status === 200) {
+                    setToken(getToken());
+                    navigate('/home'); 
+                }
+                else {
+                    console.log(response);
+                    window.alert("Ups, nie udało się zalogować, spróbuj ponownie: " + response.status + ": ");
+                }
                 
-            }).catch( (response) => {
-                console.log("JESTEM W catch");
-                console.log(response);
+            })
+            .catch( (error) => {
+                window.alert("Ups, nie udało się zalogować, spróbuj ponownie" + error);
             })  
         }
         else {
-            fetch("https://kgp-ticketapp.azurewebsites.net/users/organizers/login", {
+            await fetch("https://kgp-ticketapp.azurewebsites.net/users/organizers/login", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(Login),
-            }).then( (response) => {
-                console.log("JESTEM W then");
-                console.log(response);
+            })
+            .then( (response) => {
+                if (response.status === 200) { 
+                    setToken(getToken());
+                    navigate('/home'); 
+                } 
+                else {
+                    window.alert("Ups, nie udało się zalogować, spróbuj ponownie: " + response.status);
+                }
                 
-            }).catch( (response) => {
-                console.log("JESTEM W catch");
-                console.log(response);
+            })
+            .catch( (error) => {
+                window.alert("Ups, nie udało się zalogować, spróbuj ponownie" + error);
             })  
         }
+
+        set_try_login(false);
     }
 
     // -------------------------
@@ -154,8 +176,11 @@ const LoginPage = () => {
         setRegistration({...Registration, user: !Registration.user});
     }
 
+    const [try_register, set_try_register] = useState(false);
+
     const RegisterUser = async (e) => {
         e.preventDefault();
+        set_try_register(true);
 
         let body = {
             name: Registration.name,
@@ -166,24 +191,30 @@ const LoginPage = () => {
 
         if (Registration.user) {
             // Rejestrujemy zwykłego użytkownika
+            
             body = {...body, dateOFBirth: Registration.dateOFBirth + "T16:29:40.472Z"};
 
             console.log("body = ", body);
-            fetch("https://kgp-ticketapp.azurewebsites.net/users/registerClient", {
+            await fetch("https://kgp-ticketapp.azurewebsites.net/users/registerClient", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             }).then( (response) => {
-                console.log(response);
-            }).catch( (response) => {
-                console.log(response);
+                if (response.status === 200) {
+                    window.alert("HURAAA, udało się Cię zarejestrować, możesz zalogować się przy pomocy swoich danych");
+                }
+                else {
+                    window.alert("Ups, niestety coś poszło nie tak, sprubój ponownie:" + response.status );
+                }
+            }).catch( (error) => {
+                window.alert("Ups, niestety nie udało się Ciebie zarejestrować, wystąpił błąd " + error);
             })  
         } else {
             // Rejestrujemy Organizatora
             body = {...body, companyName: Registration.companyName};
 
             console.log("body = ", body);
-            fetch("https://kgp-ticketapp.azurewebsites.net/users/registerOrganizer", {
+            await fetch("https://kgp-ticketapp.azurewebsites.net/users/registerOrganizer", {
                 method: 'POST',
                 headers: {
                     Accept: 'application.json',
@@ -191,12 +222,21 @@ const LoginPage = () => {
                 },
                 Body: JSON.stringify(body),
                 Cache: 'default'
-            }).then( (response) => {
-                console.log(response);
-            }).catch( (response) => {
-                console.log(response);
+            })
+            .then( (response) => {
+                if (response.status === 200) {
+                    window.alert("HURAAA, udało się Cię zarejestrować, możesz zalogować się przy pomocy swoich danych");
+                }
+                else {
+                    window.alert("Ups, niestety coś poszło nie tak, sprubój ponownie:" + response.status );
+                }
+            })
+            .catch( (error) => {
+                window.alert("Ups, niestety nie udało się Ciebie zarejestrować, wystąpił błąd " + error);
             })  
         }
+
+        set_try_register(false);
     }
 
     // -------------------------
@@ -222,9 +262,10 @@ const LoginPage = () => {
                         <div id='RememberPassword'>
                             <a>Zapomniałeś hasło?</a>
                         </div>
-                        <button type="submit" className='LoginPage_LoginButton' onClick={LoginUser}>
-                            Zaloguj się
-                        </button>
+                        {!try_login ? 
+                            <button type="submit" className='LoginPage_LoginButton' onClick={LoginUser}> Zaloguj się </button> :
+                            <TailSpin height="30" width="30" color="#5a91ff" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}} wrapperClass="LoginPage_LoginButton" visible={true} />
+                        }
                     </form>
 
                     <div>
@@ -262,9 +303,10 @@ const LoginPage = () => {
                             <FormInput type="text" name="companyName" value={Registration_inputs.companyName} placeholder="Nazwa firmy" required={true} label="Nazwa przedsiębiorstwa" onChange={Registration_inputs_OnChange}/>
                         }
 
-                        <button type="submit" className='LoginPage_LoginButton' id='LoginPage_Register' onClick={RegisterUser}>
-                            Rejestruję się
-                        </button>
+                        { !try_register ? 
+                            <button type="submit" className='LoginPage_LoginButton' id='LoginPage_Register' onClick={RegisterUser}> Rejestruję się </button> : 
+                            <TailSpin height="30" width="30" color="#5a91ff" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}} wrapperClass="LoginPage_LoginButton" visible={true} />
+                        }
                     </form>
                 </div>
 

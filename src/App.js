@@ -1,31 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
-
-// Module Components
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // my components
-import LoginPage from './Pages/Login/LoginPage';
+import LoginPage from './components/Login/LoginPage';
+import HomeUser from './components/HomeUser/HomeUser';
+import HomeOrganizer from './components/HomeOrganizer/HomeOrganizer';
+
+// my hooks
+import useToken from './useToken';
 
 function App() {
+
+  const { token, setToken } = useToken();
+  
   return (
-    <div >
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <LoginPage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        { !token ?
+            <>
+            <Route path="/" element={<LoginPage setToken={setToken}/>} />
+            <Route path="*" element={<Navigate to='/' />} />
+            </>  :
+            <>
+            isTokenClient(token) ? 
+              <>
+                <Route path="/home" element={<HomeUser setToken={setToken}/>} />
+                <Route path="*" element={<Navigate to='/home'/>} />
+              </> :
+              <>
+                <Route path="/homeOrganizer" element={<HomeOrganizer setToken={setToken}/>} />
+                <Route path="*" element={<Navigate to='/home'/>} />
+              </>
+            </>
+        }
+      </Routes>
+    </BrowserRouter>
   );
 }
 
