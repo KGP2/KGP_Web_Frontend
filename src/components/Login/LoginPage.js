@@ -260,7 +260,7 @@ const LoginPage = ({setToken}) => {
                             <div>Loguje się jako organizator</div>
                         </div>
                         <div id='RememberPassword'>
-                            <a>Zapomniałeś hasło?</a>
+                            <div>Zapomniałeś hasło?</div>
                         </div>
                         {!try_login ? 
                             <button type="submit" className='LoginPage_LoginButton' onClick={LoginUser}> Zaloguj się </button> :
