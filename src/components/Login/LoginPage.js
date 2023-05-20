@@ -8,7 +8,6 @@ import "./LoginPage.css";
 
 // my components
 import FormInput from './FormInput';
-import { getToken } from '../../parseToken';
 
 const LoginPage = ({setToken}) => {
 

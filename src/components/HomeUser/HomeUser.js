@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState} from 'react'
 import {getToken} from './../../parseToken'
 import { Popover, ArrowContainer } from 'react-tiny-popover'
 import PropoverElement from './PropoverElement'
