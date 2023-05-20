@@ -1,0 +1,24 @@
+
+.propover-element
+{
+    font-size: 18px;
+}
+
+.propover-element::before
+{
+    /* content: url('./../../../public/propover/gear.svg');
+    width: 5px;
+    height: 5px; */
+    display:inline-block;
+    height:32px;
+    width:32px;
+    margin-right: 5px;
+    content: "";
+    background: url('./../../../public/propover/gear.svg');
+    background-size: 32px 32px;
+}
+
+.propover-title
+{
+
+}

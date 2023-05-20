@@ -5,8 +5,14 @@ export default function useToken() {
 
   const [token, setToken] = useState(getToken());
 
-  const saveToken = userToken => {
-    setToken(userToken);
+  const saveToken = body => {
+    
+    var now = new Date(body.expiresAt);
+
+    document.cookie = "Token=" + body.token + "; expires=" + now.toUTCString() + ";"
+    document.cookie = "UserID=" + body.user.id + "; expires=" + now.toUTCString() + ";"
+
+    setToken(body.token);
   };
 
   return {

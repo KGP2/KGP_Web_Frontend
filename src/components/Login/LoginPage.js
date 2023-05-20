@@ -78,9 +78,10 @@ const LoginPage = ({setToken}) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(Login),
             })
-            .then( (response) => {
+            .then( async (response) => {
                 if (response.status === 200) {
-                    setToken(getToken());
+                    const body = await response.json()
+                    setToken(body);
                     navigate('/home'); 
                 }
                 else {
@@ -99,9 +100,10 @@ const LoginPage = ({setToken}) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(Login),
             })
-            .then( (response) => {
+            .then( async (response) => {
                 if (response.status === 200) { 
-                    setToken(getToken());
+                    const body = await response.json()
+                    setToken(body);
                     navigate('/home'); 
                 } 
                 else {
