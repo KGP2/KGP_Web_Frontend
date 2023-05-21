@@ -7,6 +7,11 @@ export default function useToken() {
 
   const saveToken = body => {
     
+    if (!body) {
+      setToken(null)
+      return
+    }
+
     var now = new Date(body.expiresAt);
 
     document.cookie = "Token=" + body.token + "; expires=" + now.toUTCString() + ";"

@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import {getToken} from './../../parseToken'
+import {getToken, LogOut} from './../../parseToken'
 import { Popover, ArrowContainer } from 'react-tiny-popover'
 import MenuElement from './MenuElement'
-import MenuPage from './MenuPage'
+import UserDataMenu from '../UserDataMenu/UserDataMenu'
 
 import "./HomeUser.css";
 
@@ -20,15 +20,11 @@ const HomeUser = (props) => {
         setMenuNum(0);
     }
 
-
     const renderMenuPage = (num) => {
         switch(num) {
             case 1:
                     console.log("WCHODZĘ DO 1")
-                    return <MenuPage closeMenu={closeMenu}>
-                                <div>Huj</div>
-                                <div>Pizda</div>
-                           </MenuPage> 
+                    return <UserDataMenu closeMenu={closeMenu}/>
             default:
                 return <></>
         }
@@ -75,7 +71,9 @@ const HomeUser = (props) => {
                                 <MenuElement title={"Wyloguj się"} beforeContent={"./menu/log-out.svg"}
                                     onClick={() => { 
                                         setIsPopoverOpen(false)
-                                        console.log("Dodać proces wylogowania się") 
+                                        LogOut()
+                                        props.setToken(null);
+                                        window.location.reload();   
                                         }} 
                                 />
                             </div>

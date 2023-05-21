@@ -8,11 +8,11 @@ class MenuPage extends React.Component
 
     render() {
         return(
-            <div id="menu-page">
-                <div id="menu-page-island">
+            <div class="menu-page">
+                <div class="menu-page-island">
                     {this.props.children}
-                    <button type="button" id="btn-close" onClick={this.props.closeMenu}>
-                        <span id="icon-cross"></span>
+                    <button type="button" class="btn-close" onClick={this.props.closeMenu}>
+                        <span class="icon-cross"></span>
                     </button>
                 </div>
             </div>

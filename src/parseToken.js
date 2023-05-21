@@ -1,5 +1,5 @@
 
-function check_cookie_name(name) 
+export function check_cookie_name(name) 
 {
   var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   if (match) 
@@ -32,4 +32,15 @@ export function isTokenClient(token) {
 
 export function isTokenOrganizer(token) {
   return !isTokenClient(token)
+}
+
+export function LogOut() 
+{
+  if (check_cookie_name("Token")) {
+    document.cookie = "Token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+
+  if (check_cookie_name("UserID")) {
+    document.cookie = "UserID= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+  }
 }
