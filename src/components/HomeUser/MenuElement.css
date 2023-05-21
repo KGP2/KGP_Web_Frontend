@@ -1,0 +1,29 @@
+
+.menu-element
+{
+    height: 30px;
+    width: 150px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 3px 0px;
+
+    cursor: pointer;
+}
+
+.menu-element:hover
+{
+    font-weight: 700;
+}
+
+.menu-element > img 
+{
+    margin: 0px 5px;
+}
+
+.menu-element > div 
+{
+    margin: 0px 5px;
+    font-size: 18px;
+}

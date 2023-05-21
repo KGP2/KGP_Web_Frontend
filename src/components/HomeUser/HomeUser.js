@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import {getToken} from './../../parseToken'
 import { Popover, ArrowContainer } from 'react-tiny-popover'
-import PropoverElement from './PropoverElement'
+import MenuElement from './MenuElement'
+import MenuPage from './MenuPage'
 
 import "./HomeUser.css";
 
@@ -13,6 +14,25 @@ const HomeUser = (props) => {
     } 
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
+    const [MenuNum, setMenuNum] = useState(0)
+    const closeMenu = () => {
+        setMenuNum(0);
+    }
+
+
+    const renderMenuPage = (num) => {
+        switch(num) {
+            case 1:
+                    console.log("WCHODZĘ DO 1")
+                    return <MenuPage closeMenu={closeMenu}>
+                                <div>Huj</div>
+                                <div>Pizda</div>
+                           </MenuPage> 
+            default:
+                return <></>
+        }
+    }
 
     // -------------------------
     //          RENDER
@@ -33,28 +53,46 @@ const HomeUser = (props) => {
                             position={position}
                             childRect={childRect}
                             popoverRect={popoverRect}
-                            arrowColor={'blue'}
+                            arrowColor={'#5a91ff'}
                             arrowSize={10}
-                            arrowStyle={{ opacity: 0.7 }}
+                            arrowStyle={{ opacity: 1 }}
                             className='popover-arrow-container'
                             arrowClassName='popover-arrow'
                         >
                             <div className="propover-menu">
-                                <PropoverElement title={"Moje Dane"} beforeContent={'url(./../../../public/propover/gear.svg)'}/>
-                                <PropoverElement title={"Moje bilety"} beforeContent={'🔗'}/>
-                                <PropoverElement title={"Wyloguj się"} beforeContent={'🔗'}/>
-                                </div>
+                                <MenuElement title={"Moje Dane"} beforeContent={"./menu/person.svg"} 
+                                    onClick={() => { 
+                                        setIsPopoverOpen(false)
+                                        setMenuNum(1)
+                                    }} 
+                                />
+                                <MenuElement title={"Moje bilety"} beforeContent={"./menu/ticket.svg"}
+                                    onClick={() => { 
+                                        setIsPopoverOpen(false)
+                                        setMenuNum(2) 
+                                    }}
+                                />
+                                <MenuElement title={"Wyloguj się"} beforeContent={"./menu/log-out.svg"}
+                                    onClick={() => { 
+                                        setIsPopoverOpen(false)
+                                        console.log("Dodać proces wylogowania się") 
+                                        }} 
+                                />
+                            </div>
                         </ArrowContainer>
                   )}
                     >
+
                     <div className="propover-element" onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
-                        Menu
+                        <MenuElement title={"Menu"} beforeContent={"./menu/gear.svg"}/>
                     </div>
                 </Popover>
                 </div>
                 <div>Dupa4</div>
                 <div>Dupa5</div>
                 <div>Dupa6</div>
+
+                { MenuNum !== 0 ? renderMenuPage(MenuNum) : null }
             </div>
         </div>
     )
