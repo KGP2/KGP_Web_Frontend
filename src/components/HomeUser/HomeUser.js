@@ -24,7 +24,7 @@ const HomeUser = (props) => {
         switch(num) {
             case 1:
                     console.log("WCHODZĘ DO 1")
-                    return <UserDataMenu closeMenu={closeMenu}/>
+                    return <UserDataMenu closeMenu={closeMenu} setToken={props.setToken}/>
             default:
                 return <></>
         }

@@ -12,6 +12,10 @@ export function getToken() {
   return check_cookie_name("Token")
 }
 
+export function getUserID() {
+  return check_cookie_name("UserID")
+}
+
 export function parseJwt (token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -44,3 +48,4 @@ export function LogOut()
     document.cookie = "UserID= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
   }
 }
+
