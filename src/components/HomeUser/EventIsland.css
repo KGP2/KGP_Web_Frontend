@@ -1,0 +1,52 @@
+#EventIsland
+{
+    flex: 0 0 33.333333%;
+    display: flex;
+    padding: 20px;
+    max-height: 250px;
+    min-height: 250px; 
+}
+
+#EventInfo-inner
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    border: 2px blue solid;
+}
+
+#EventInfo-front, #EventInfo-back
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+#EventInfo-front
+{
+    border-radius: 10px;
+    background-color: rgb(230, 255, 255);
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+#EventInfo-back
+{
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(230, 255, 255);
+    transform: rotateY(180deg);
+}
+
+#EventIsland:hover #EventInfo-inner {
+    transform: rotateY(180deg);
+}
+

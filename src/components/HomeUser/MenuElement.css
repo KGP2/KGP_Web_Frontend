@@ -1,8 +1,22 @@
 
+@keyframes menu-element-animation {
+    0% {
+        margin: 0px 5px;
+    }
+
+    25% {
+        margin: 0px 15px;
+    }
+
+    100% {
+        margin: 0px 5px;
+    }
+}
+
 .menu-element
 {
     height: 30px;
-    width: 150px;
+    width: 175px;
 
     display: flex;
     flex-direction: row;
@@ -10,11 +24,14 @@
     margin: 3px 0px;
 
     cursor: pointer;
+
+    &:hover {
+        font-weight: 700;
+    }
 }
 
-.menu-element:hover
-{
-    font-weight: 700;
+.menu-element:hover > div {
+    animation: menu-element-animation 0.5s 1;
 }
 
 .menu-element > img 

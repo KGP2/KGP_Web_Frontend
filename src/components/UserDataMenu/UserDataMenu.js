@@ -5,8 +5,8 @@ import './FormTemplate.css'
 import MenuPage from './../MenuPage/MenuPage'
 import { getUserID, LogOut, getToken} from '../../parseToken'
 import FormElement from './FormElement'
-import { BallTriangle } from 'react-loader-spinner'
 import { TailSpin } from 'react-loader-spinner'
+import InfoBox from './../InfoBox/InfoBox'
 
 const UserDataMenu = ({closeMenu, setToken}) => {
 
@@ -56,6 +56,8 @@ const UserDataMenu = ({closeMenu, setToken}) => {
 
     const ChangeUserData = async () => {
         
+        setIsInChange(true)
+
         const id = getUserID();
         const token = getToken();
 
@@ -65,7 +67,7 @@ const UserDataMenu = ({closeMenu, setToken}) => {
             window.location.reload();   
         }         
 
-        fetch( "https://kgp-ticketapp.azurewebsites.net/users/editClient/" + id, {
+        await fetch( "https://kgp-ticketapp.azurewebsites.net/users/editClient/" + id, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -84,6 +86,8 @@ const UserDataMenu = ({closeMenu, setToken}) => {
         }).catch((e) => {
             console.log("UPS!")
         })
+
+        setIsInChange(false)
     }
 
     const getUserData = async () => {
@@ -154,9 +158,9 @@ const UserDataMenu = ({closeMenu, setToken}) => {
                             <TailSpin height="30" width="30" color="#5a91ff" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}} wrapperClass="t-accept-button" visible={true} />
                         }
                     </form>
-                    <div className='info-block'>
-                        Dupa oraz Pizda szły razem ulicą
-                    </div>
+                    <InfoBox title="Testowy nagłówek"> 
+                        <div>Zawartość</div>
+                    </InfoBox>
                 </div>
             </div>
         </MenuPage> 
