@@ -1,5 +1,6 @@
 import React from 'react'
 import "./EventIsland.css";
+import "./../UserDataMenu/FormTemplate.css"
 
 const EventIsland = (props) => {
 
@@ -23,6 +24,8 @@ const EventIsland = (props) => {
                     <div>Cena: {price} zł</div>
                     <div>Data rozpoczęcia sprzedaży: {saleStartDate.substring(0, saleStartDate.indexOf("T"))} </div>
                     <div>Data zakończenia sprzedaży: {saleEndDate.substring(0, saleEndDate.indexOf("T"))} </div>
+
+                    <button className='t-accept-button'>Kup Bilet</button>
                 </div>
             </div>
         </div>

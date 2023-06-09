@@ -1,0 +1,8 @@
+.tickets-grid
+{
+    display: grid;
+    grid-template-columns: [col_line1] 1fr [col_line2] 1fr [col_line3];
+
+    width: 100%;
+    height: 100%;
+}

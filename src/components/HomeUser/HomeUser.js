@@ -3,6 +3,7 @@ import {getToken, LogOut, getUserID} from './../../parseToken'
 import { Popover, ArrowContainer } from 'react-tiny-popover'
 import MenuElement from './MenuElement'
 import UserDataMenu from '../UserDataMenu/UserDataMenu'
+import MyTiketsMenu from '../MyTiketsMenu/MyTiketsMenu'
 import "./EventIsland"
 import "./HomeUser.css";
 import EventIsland from './EventIsland'
@@ -28,6 +29,9 @@ const HomeUser = (props) => {
             case 1:
                     console.log("WCHODZĘ DO 1")
                     return <UserDataMenu closeMenu={closeMenu} setToken={props.setToken}/>
+            case 2:
+                    console.log("WCHODZĘ DO 2")
+                    return <MyTiketsMenu closeMenu={closeMenu} setToken={props.setToken}/>
             default:
                 return <></>
         }
