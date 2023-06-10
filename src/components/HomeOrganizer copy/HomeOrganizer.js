@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getToken, LogOut, getUserID } from './../../parseToken'
-import { useNavigate } from 'react-router-dom';
+import { getToken, LogOut, getUserID } from '../../parseToken'
 
 const HomeOrganizer = (props) => {
 
@@ -9,7 +8,6 @@ const HomeOrganizer = (props) => {
         window.location.reload();
     }
 
-    const navigate = useNavigate();
     const [organizerData, setOrganizerData] = useState(null);
     const [eventsData, setEventsData] = useState(null);
 
@@ -96,9 +94,7 @@ const HomeOrganizer = (props) => {
         <>
             <h1>Hello {organizerData?.companyName}</h1>
             <h2>Your events:</h2>
-            <button onClick={() => navigate('/createEvent')}>
-                Nowe wydarzenie
-            </button>
+            <button>Nowe wydarzenie</button>
             <table>
                 {renderEventsList()}
             </table>
