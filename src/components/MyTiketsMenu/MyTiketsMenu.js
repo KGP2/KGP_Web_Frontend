@@ -9,6 +9,7 @@ const MyTiketsMenu = ({closeMenu, setToken}) => {
     const [myTickets, setMyTickets] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isDetailLoading, setIsDetailLoading] = useState(false);
+    const [detail, setDetail] = useState(null);
 
     const getUserTikets = async () => {
 
@@ -33,10 +34,10 @@ const MyTiketsMenu = ({closeMenu, setToken}) => {
 
             if (response.status === 200) {
                 const body = await response.json()
-                console.log(body);
-            } else if (response.status == 404) {
+                setMyTickets(body);
+            } else if (response.status === 404) {
                 // Brak biletów 
-                
+
             } 
             else {
                 console.log("Wystąpił błąd :(((")
@@ -51,7 +52,7 @@ const MyTiketsMenu = ({closeMenu, setToken}) => {
     }
 
 
-    const getTicketDetails = (ticketID) => {
+    const getTicketDetails = async (eventID) => {
         
         setIsDetailLoading(true);
 
@@ -66,9 +67,31 @@ const MyTiketsMenu = ({closeMenu, setToken}) => {
 
         // Dopisać pobieranie szczegółów biletów 
 
+        await fetch("https://kgp-ticketapp.azurewebsites.net/events/" + eventID, {
+            method: 'GET',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token.toString()
+            }
+        }).then ( async (response) => {
+
+            if (response.status === 200) {
+                const body = await response.json()
+                setDetail(body);
+            }
+            else {
+                console.log("Nie no coś poszło nie tak niestety, trudno :(");
+            }
+        }).catch((e) => {
+            console.log("Wystąpił jakiś bardzo nie przyjemny błąd")
+        })
+
         setIsDetailLoading(false);
     }
 
+    const downloadPDF = ( (dupa) => {
+        window.open(dupa, "_blank");
+    }) 
 
     useEffect(() => {
         getUserTikets();
@@ -85,16 +108,99 @@ const MyTiketsMenu = ({closeMenu, setToken}) => {
                             isLoading 
                             ? 
                             <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                            <TailSpin height="100" width="100" color="#5a91ff" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}}  visible={true} /> 
+                                <TailSpin height="100" width="100" color="#5a91ff" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}}  visible={true} /> 
                             </div> 
                             :
                             ( 
                                 (myTickets != null) ? 
-                                "BILETY SĄ" : 
-                                "Ups, wygląda na to że nie posiadasz żadnego biletu, ale zawsze możesz to zmienić :)" )
+                                <>
+                                    {
+                                        myTickets.map( (bilet) => 
+                                            <div> 
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th> ID Biletu </th>
+                                                            <th> {bilet.ticketId} </th>
+                                                            <th> 
+                                                                <button onClick={(e) => 
+                                                                    {e.preventDefault(); downloadPDF(bilet.ticketPdfUrl); }}>
+                                                                Pobierz bilet w PDF
+                                                                </button> 
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th> ID Wydarzenia </th>
+                                                            <th> {bilet.eventId} </th>
+                                                            <th> 
+                                                                <button onClick={(e) => 
+                                                                {
+                                                                    e.preventDefault();
+                                                                    getTicketDetails(bilet.eventId);
+                                                                }}>
+                                                                    Zobacz szczegóły 
+                                                                </button> 
+                                                            </th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                
+                                            </div>
+                                        )
+                                    }
+                                </>
+                                : 
+                                "Ups, wygląda na to że nie posiadasz żadnego biletu, ale zawsze możesz to zmienić :)" 
+                            )
                             
                         } </div>
-                    <div className='Ticket-Details'> Detale </div>
+                    <div className='Ticket-Details'> 
+                        {
+                            isDetailLoading ? 
+                            <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                                <TailSpin height="100" width="100" color="#5a91ff" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}}  visible={true} /> 
+                            </div>
+                            :
+                            (
+                                detail ? 
+                                    <div style={{display: "Flex", flexDirection: "column"}}>
+                                            <div>
+                                                <span>Data: </span>
+                                                <span>{detail.date}</span>
+                                            </div>
+                                            <div>
+                                                <span>Nazwa: </span>
+                                                <span>{detail.name}</span>
+                                            </div>
+                                            <div>
+                                                <span>ID organizatora: </span>
+                                                <span>{detail.organizerId}</span>
+                                            </div>
+                                            <div>
+                                                <span>Początek sprzedarzy: </span>
+                                                <span>{detail.saleStartDate}</span>
+                                            </div>
+                                            <div>
+                                                <span>Początek koniec sprzedarzy: </span>
+                                                <span>{detail.saleEndDate}</span>
+                                            </div>
+                                            <div>
+                                                <span>Miejsce: </span>
+                                                <span>{detail.place}</span>
+                                            </div>
+                                            <div>
+                                                <span>Cena: </span>
+                                                <span>{detail.price}</span>
+                                            </div>
+                                            <div>
+                                                <span>Limit Uczęstników: </span>
+                                                <span>{detail.participantsLimit}</span>
+                                            </div>
+                                    </div>
+                                    :
+                                "Detale"
+                            )
+                        }  </div>
                 </div>
             </div>
         </MenuPage> 

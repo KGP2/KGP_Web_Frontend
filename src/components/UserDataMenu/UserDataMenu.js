@@ -76,7 +76,7 @@ const UserDataMenu = ({closeMenu, setToken}) => {
             body: JSON.stringify(formValues),
         }).then ( async (response) => {
 
-            if (response.status == 200) {
+            if (response.status === 200) {
 
                 console.log("UDALO SIE!!!!");
             }
@@ -112,7 +112,7 @@ const UserDataMenu = ({closeMenu, setToken}) => {
         })
         .then( async (response) => {
             
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const body = await response.json()
                 console.log(body);
 
@@ -137,7 +137,7 @@ const UserDataMenu = ({closeMenu, setToken}) => {
         console.log('useEffect ran');
 
         getUserData();
-    }, [])
+    })
 
     return(
         <MenuPage closeMenu={closeMenu}>

@@ -60,8 +60,8 @@ const HomeUser = (props) => {
 
 
         await fetch("https://kgp-ticketapp.azurewebsites.net/events?" + 
-            "DateFrom=" + (searchParametrs.DateFrom != "" ?  searchParametrs.DateFrom + "T00:00:00.000" : "") +
-            "&DateTo=" + (searchParametrs.DateTo != "" ?  searchParametrs.DateTo + "T00:00:00.000" : "") +
+            "DateFrom=" + (searchParametrs.DateFrom !== "" ?  searchParametrs.DateFrom + "T00:00:00.000" : "") +
+            "&DateTo=" + (searchParametrs.DateTo !== "" ?  searchParametrs.DateTo + "T00:00:00.000" : "") +
             "&Place=" + searchParametrs.Place
             , {
             method: "GET",
@@ -86,6 +86,7 @@ const HomeUser = (props) => {
         setLoadEvents(false);
     }
 
+    
 
     useEffect(() => {
         console.log("Use Effect start");
