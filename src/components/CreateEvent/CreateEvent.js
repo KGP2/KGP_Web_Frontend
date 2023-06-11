@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { getToken, LogOut, getUserID } from '../../parseToken'
-import { json } from 'react-router-dom';
 
 const CreateEvent = (props) => {
 
@@ -13,23 +12,51 @@ const CreateEvent = (props) => {
 
     const responseBody = {};
 
-    const inputChangeHandler = (event) => {
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+    const inputChangeHandler = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         formData.forEach((value, property) => responseBody[property] = value);
         //Form submission happens here
         const token = getToken();
         responseBody.organizerId = getUserID();
-        responseBody.photo = "";
-        responseBody.saleStartDate = Date.now();
-        responseBody.saleEndDate = Date.now();
+        debugger;
+        responseBody.photo = await convertBase64(responseBody.photo);;
+
+        let date = new Date(responseBody.date);
+
+        date.setHours(responseBody.time.substr(0, 2));
+        date.setMinutes(responseBody.time.substr(3, 2));
+
+        responseBody.date = date.toISOString();
+        responseBody.saleStartDate = new Date(responseBody.saleStartDate).toISOString();
+        responseBody.saleEndTime = new Date(responseBody.saleEndTime).toISOString();
+
+        responseBody.price = Number(responseBody.price);
+        responseBody.participiantsLimit = Number(responseBody.participiantsLimit);
+
+        console.log(responseBody);
         fetch("https://kgp-ticketapp.azurewebsites.net/events", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token.toString()
             },
-            body: responseBody,
+            body: JSON.stringify(responseBody),
         }).then(async (response) => {
 
             if (response.status === 200) {
@@ -94,7 +121,7 @@ const CreateEvent = (props) => {
                         <th>Date</th><th><input name='date' type='date' min="2023-01-01" max="2069-12-31" required></input></th>
                     </tr>
                     <tr>
-                        <th>Time</th><th><input name='time' type='time' value="20:00" required></input></th>
+                        <th>Time</th><th><input name='time' type='time' required></input></th>
                     </tr>
                     <tr>
                         <th>Price</th><th><input name='price' type='number' required></input></th>
@@ -110,6 +137,12 @@ const CreateEvent = (props) => {
                     </tr>
                     <tr>
                         <th>Place</th><th><input name='place' type='text' required></input></th>
+                    </tr>
+                    <tr>
+                        <th>Sale start</th><th><input name='saleStartDate' type='date' min="2023-01-01" max="2069-12-31" required></input></th>
+                    </tr>
+                    <tr>
+                        <th>Sale end</th><th><input name='saleEndTime' type='date' min="2023-01-01" max="2069-12-31" required></input></th>
                     </tr>
                     <tr>
                         <th>Photo</th><th><input name='photo' type='file' accept='image/png, image/jpeg, image/jpg'></input></th>
